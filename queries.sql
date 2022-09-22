@@ -31,7 +31,3 @@ SELECT id,escapet_attempts, name FROM animals WHERE escapet_attempts = (SELECT M
 SELECT id,escapet_attempts, name FROM animals WHERE escapet_attempts = (SELECT MAX(escapet_attempts) FROM animals);
  SELECT MIN (weight_kg), MAX (weight_kg) FROM animals;
  SELECT AVG(escapet_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-1' AND '2000-12-31';
-
-
-
-
