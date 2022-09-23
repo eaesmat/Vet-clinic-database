@@ -31,3 +31,14 @@ SELECT id,escapet_attempts, name FROM animals WHERE escapet_attempts = (SELECT M
 SELECT id,escapet_attempts, name FROM animals WHERE escapet_attempts = (SELECT MAX(escapet_attempts) FROM animals);
  SELECT MIN (weight_kg), MAX (weight_kg) FROM animals;
  SELECT AVG(escapet_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-1' AND '2000-12-31';
+ UPDATE animals SET species_id =2 WHERE name LIKE '%mon';
+UPDATE animals SET species_id = 1 WHERE species_id IS NULL;
+UPDATE animals SET owner_id = (SELECT id FROM owners WHERE full_name = 'Sam Smith') WHERE name = 'Agumon';
+UPDATE animals SET owner_id= (SELECT id FROM owners WHERE full_name = 'Jennifer Orwell') WHERE name IN ('Gabumon','Pikachu');UPDATE animals SET owner_id = (SELECT id FROM owners WHERE full_name = 'Bob') WHERE name IN ('Devimon','Plantmon');
+UPDATE animals SET owner_id = (SELECT id FROM owners WHERE full_name = 'Melody Pond') WHERE name IN ('Blossom','Squirtle','Charmander');
+UPDATE animals SET owner_id = (SELECT id FROM owners WHERE full_name = 'Dean Winchester') WHERE name IN ('Angemon','Boarmon');
+SELECT name FROM animals INNER JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Melody Pond';
+select species.name, count(animals.id) from animals INNER JOIN species ON animals.species_id = species.id group by species.id;
+select owners.full_name AS owner,animals.name AS animalName, species.name AS Type FROM animals INNER JOIN owners ON  animals.owner_id = owners.id INNER JOIN species ON animals.species_id = species.id WHERE species.name = 'Digimon' AND owners.full_name = 'Jennifer Orwell';
+SELECT owners.full_name, animals.name, escapet_attempts FROM animals INNER JOIN owners ON animals.owner_id = owners.id WHERE escapet_attempts = 0 AND owners.full_name = 'Dean Winchester'
+SELECT owners.full_name FROM owners INNER JOIN animals ON owners.id = animals.owner_id GROUP BY owners.full_name ORDER BY COUNT(*) DESC LIMIT 1;
